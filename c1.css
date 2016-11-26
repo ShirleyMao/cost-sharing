@@ -1,0 +1,268 @@
+div
+{
+	margin:0;
+	padding:0;
+	border: 0;
+}
+
+div#header
+{
+	border-style:none none solid none ;
+	border-bottom-width:4px;
+	border-bottom-color: #D8D0D0;
+	width:80%;
+	position: fixed;
+	left:10%;
+	top:5px
+}
+
+h1/*-------------------header--------------------------*/
+{
+	margin:20px 0px 20px 16px;
+	font-size: 28px;
+	font-weight:200;
+	text-align: center;
+
+}
+
+/***cost-sharing.html**/
+div#modify
+{
+	border-style:none none solid none ;
+	border-bottom-width:1px;
+	border-bottom-color: #E0E0E0;
+	width:80%;
+	position: fixed;
+	left:10%;
+	top:85px;
+}
+
+div#output
+{
+	border-style:solid ;
+	border-width:1px;
+	border-color: #E0E0E0;
+	width:80%;
+	height:70%;
+	position: fixed;
+	left:10%;
+	top:160px;
+	overflow: scroll;
+}
+/***cost-sharing.html**/
+/*-------------------Navigator--------------------------*/
+
+nav#navigator
+{
+	border-style:none none solid none ;
+	border-bottom-width:1px;
+	border-bottom-color: #E0E0E0;
+	width:80%;
+	position: fixed;
+	left:10%;
+	top:85px;
+	background: #fff;
+
+}
+
+#menuNav
+{
+  float:left;
+  width: 75%;
+  margin: 0;
+  padding: 0;
+  list-style-type:none;
+  height: 60px;
+  overflow-x: auto;
+  overflow-y:hidden;
+
+}
+
+ul#menu
+{
+	float:left;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	list-style-type:none;
+	height: 60px; 
+	
+}
+
+ul#menu li a
+{
+
+	display: inline-block;
+	float:left;
+	margin:10px 0px;
+	width:4em;
+	height: 26px;
+	font-size: 1.5em;
+	font-weight:150;
+	text-decoration:none;
+	color:#000000;
+	padding: 0.1em;
+	border-right:2px solid white;
+	overflow:hidden;
+
+}
+a:link {background-color:#E8E8E8}
+a:hover {background-color:#FFFF66}
+
+
+#add 
+{
+	margin:20px 0px;
+}
+/*-------------------content--------------------------*/
+div#infoBody
+{
+	
+	border-style:solid ;
+	border-width:1px;
+	border-color: #E0E0E0;
+	width:80%;
+	height:70%;
+	position: fixed;
+	left:10%;
+	top:150px;
+	font-weight:200;
+	overflow: auto;
+}
+
+
+
+div#content1_0 
+{
+	border-style:none none solid none ;
+	border-bottom-width:1px;
+	border-bottom-color: #E0E0E0;
+	background: #F0F0F0;
+	padding:2px;
+	height: 26px;
+}
+
+input#itemName0
+{
+	border:none;
+	background-color:#F0F0F0;
+	font-size:16px;
+}
+
+
+input.inputdata
+{
+	width:120px;
+}
+
+input.button
+{
+	font-size: 16px;
+	font-weight:200;
+}
+div#delItem
+{
+	width:40px;
+	height:10px;
+	visibility: hidden;
+	background: #ffa;
+	border:15px solid #ffa;
+	position: absolute;
+}
+
+footer
+{
+	margin-bottom:0px;
+	padding-bottom:0px;
+	padding-left:2%;
+	color:#C0C0C0;
+	clear:both;
+}
+
+
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/  
+::-webkit-scrollbar  
+{  
+    width: 10px;  
+    height: 10px;  
+    background-color: #F5F5F5;  
+}  
+  
+/*定义滚动条轨道 内阴影+圆角*/  
+::-webkit-scrollbar-track  
+{  
+    -webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.3);  
+    border-radius: 5px;  
+    background-color: #F5F5F5;  
+}  
+  
+/*定义滑块 内阴影+圆角*/  
+::-webkit-scrollbar-thumb  
+{  
+    border-radius: 5px;  
+    -webkit-box-shadow: inset 0 0 3px rgba(0,0,0,.3);  
+    background-color: #D8D5D5;  
+}
+
+
+
+/*
+div#navfirst ul#menu li prepay
+		{
+		text-indent: -9999px;
+		overflow:hidden;
+		text-decoration: none;
+		}
+
+#prepay	{left:0;width:155px;}
+#AddNew1{left:155px;width:157px;}
+
+#s	{left:312px;width:167px;}
+#d 	{left:479px;width:158px;}
+#x	{left:637px;width:101px;}
+#m	{left:738px;width:185px;}
+#w	{left:923px;width:177px;}
+
+#h a:hover	{background: transparent url(/ui/bg.gif) 0 -55px no-repeat;}
+#b a:hover	{background: transparent url(/ui/bg.gif) -155px -55px no-repeat;}
+#s a:hover	{background: transparent url(/ui/bg.gif) -312px -55px no-repeat;}
+#d a:hover	{background: transparent url(/ui/bg.gif) -479px -55px no-repeat;}
+#x a:hover	{background: transparent url(/ui/bg.gif) -637px -55px no-repeat;}
+#m a:hover	{background: transparent url(/ui/bg.gif) -738px -55px no-repeat;}
+#w a:hover	{background: transparent url(/ui/bg.gif) -923px -55px no-repeat;}
+
+body.html #h {background: transparent url(/ui/bg.gif) 0 -55px no-repeat;}
+body.browserscripting #b {background: transparent url(/ui/bg.gif) -155px -55px no-repeat;}
+body.serverscripting #s {background: transparent url(/ui/bg.gif) -312px -55px no-repeat;}
+body.dotnet #d {background: transparent url(/ui/bg.gif) -479px -55px no-repeat;}
+body.xml #x {background: transparent url(/ui/bg.gif) -637px -55px no-repeat;}
+body.multimedia #m {background: transparent url(/ui/bg.gif) -738px -55px no-repeat;}
+body.webbuilding #w {background: transparent url(/ui/bg.gif) -923px -55px no-repeat;}
+
+#ws	{left:738px;width:185px;}
+#ws a:hover	{background: transparent url(/ui/bg.gif) -738px -55px no-repeat;}
+body.webservices #ws {background: transparent url(/ui/bg.gif) -738px -55px no-repeat;}
+
+*/
+
+
+	/* Default links */
+	/*
+a:link, a:visited {
+	text-decoration : underline;
+	color : #900b09;
+	background : transparent; 
+	}
+
+a:hover {
+	text-decoration : underline;
+	color: #ff0000;
+	background : transparent; 
+	}
+
+a:active {
+	text-decoration : underline;
+	color : #ff0000;
+	background : transparent;  
+	}
+*/
