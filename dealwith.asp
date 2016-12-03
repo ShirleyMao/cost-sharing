@@ -1,3 +1,4 @@
+<%@Language="vbscript" Codepage="65001"%>
 <%
 dim xmlDoc
 dim rootEl,fieldName,fieldValue
