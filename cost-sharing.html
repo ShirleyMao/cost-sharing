@@ -34,7 +34,6 @@
 				<input id="itemName0" class="inputdata" type="text" name="item" value="预付款"/>	总金额：
 				<input id="pay0" class="inputdata" type="text" name="totalPay" />	总人数：  
 				<input id="shareNum0" class="inputdata" type="text" name="userNum"/>
-				<input id="btnReset0" class="btnRst" type="reset" value="更新"/>
 				<input id="btnSubmit0" class="btnSubmit" type="submit" value="提交"/>
 			</form>
 		</div>
@@ -145,7 +144,26 @@
 		});
 
 	}
+	/******if name has already exist, auto show Tel and Email when name change**********/
+	function telEmailAutoShow(){
+		var database=loadXMLDoc("fee.xml");
+		if(xmldoc!=null)
+    	{
+    		var userInxml=xmldoc.getElementsByTagName("Payer");
+    		for(var i=0;i<userInxml.length;i++)
+    		{
+    			var userX=userInxml[i];
+    			if(this.value==userX.childNodes[0].nodeValue)  //this: input Payer
+    			{
+    				this.parentNode.nextSibling.firstChild.value=userX.nextElementSibling.childNodes[0].nodeValue;  //td->td->input Tel
+    				this.parentNode.nextSibling.nextSibling.firstChild.value=userX.nextElementSibling.nextElementSibling.childNodes[0].nodeValue;//td->td->input Email
+    				break;
+    			}
+    		}
+    		
+    	}
 
+	}
 
 
 	//var TableAdd= function(itemNum)
@@ -179,6 +197,7 @@
     /***************add click function to delete button*******/
     var deleterow=row.lastChild.firstChild;
     EventUtil.addHandler(deleterow,"click",deleteUser);
+    EventUtil.addHandler(cell0.firstChild,"change",telEmailAutoShow);
 
 
   };
@@ -208,15 +227,11 @@
 		{
 			var table=document.getElementById("tableInfo"+i);
 			var user=document.getElementById("shareNum"+i);
-			alert(user);
 			user.value=table.rows.length-1;
-			alert(user.value);
 		}
 
 
 	};
-
- 
 
     /*********add new item**********/
 	function addContent1Css (ElmentId) {
@@ -248,8 +263,7 @@
              				+"总金额："
               				+"<input id=pay"+count+" class=inputdata type=text name=totalPay form=info1>"+"  总人数:"
               				+"<input id=shareNum"+count+" class=inputdata type=text name=userNum form=info1 defaultValue=可选>"+"  "
-             				+"<input id=btnReset"+count +" class=btnRst type=reset value=更新 form=info1>"+"  "
-              				+"<input id=btnSubmit"+count+" class=btnSubmit type=submit value=提交 form=info1>"+"  "
+                   			+"<input id=btnSubmit"+count+" class=btnSubmit type=submit value=提交 form=info1>"+"  "
               			//+"</form>"
               		+"</div>"
               		+"<div class=mainbody id=content2_"+count+">"
@@ -350,6 +364,7 @@
 	var btnClickSubmit=document.getElementById("btnSubmit0");
 	EventUtil.addHandler(btnClickSubmit,"click",addUserNum);
 
+
 	 //****************display the haved items*****************
 
     var xmldoc=loadXMLDoc("fee.xml");
@@ -378,7 +393,6 @@
 	             				+"总金额："
 	              				+"<input id=pay"+count+" class=inputdata type=text name=totalPay form=info1>"+"  总人数:"
 	              				+"<input id=shareNum"+count+" class=inputdata type=text name=userNum form=info1>"+"  "
-	             				+"<input id=btnReset"+count +" class=btnRst type=reset value=更新 form=info1>"+"  "
 	              				+"<input id=btnSubmit"+count+" class=btnSubmit type=submit value=提交 form=info1>"+"  "
 	              			//+"</form>"
 	              		+"</div>"
@@ -464,7 +478,7 @@
 		  		
 		    	k=xmlTable[i].childNodes[0].nodeValue-1;
 
-		    		 //add users
+		    	//add users
 		    	while(k--)
 			   	{
 					var oritable=document.getElementById("tableInfo"+i);
@@ -492,22 +506,26 @@
 			   	}
 
 			   	var htmlTable=document.getElementById("tableInfo"+i);
+			   	var htmlUser=document.getElementsByName("Payer");
 			   	var i1=0,j1=0;
-				for (i1=0;i1<userN.value;i1++)
+				for (i1=0;i1<userN.value;i1++)  // usesrs
 				{
-					for(j1=0;j1<5;j1++)
+					for(j1=0;j1<5;j1++)  //five cells every user
 					{
 					   	var xx=xmlTable[i].childNodes[j1+1+5*i1];
 					   	htmlTable.rows[i1+1].cells[j1].firstChild.value=xx.childNodes[0].nodeValue;
 					}
+
+					EventUtil.addHandler(htmlUser[i1],"change",telEmailAutoShow);
 				} 
+
+
 			    		    
 	    	}
 	    }
 
 	    if(x.length>7)
 	    {
-	    	//document.getElementById("menuNav").style.width=(parseInt(x.length/7)+parseInt(1))*100%;
 	    	document.getElementById("menu").style.width=parseInt(Math.ceil(x.length/6))*28+"em";
 	    }
 	}
@@ -517,13 +535,12 @@
 
 	/***************delete new user************/
 	var dele=document.getElementsByName("del");
-	console.log(dele);
     for(var i=0;i<dele.length;i++)
     {
 		EventUtil.addHandler(dele[i],"click",deleteUser);
     }
 
-	//window.location.href="#item0";
+	
 
 </script>
 	
@@ -536,4 +553,5 @@
 </body>
 
 </html>
+
 
