@@ -24,6 +24,7 @@
 		</ul>
 	</div>
 	<input  id="add" type="button" value="新增支出"/><!--需要补充href-->
+	<input id="btnSubmit" form="info1" class="btnSubmit" type="submit" value="提交"/>
 
 </nav>
 <div id="infoBody" class="mainbody">
@@ -34,7 +35,6 @@
 				<input id="itemName0" class="inputdata" type="text" name="item" value="预付款"/>	总金额：
 				<input id="pay0" class="inputdata" type="text" name="totalPay" />	总人数：  
 				<input id="shareNum0" class="inputdata" type="text" name="userNum"/>
-				<input id="btnSubmit0" class="btnSubmit" type="submit" value="提交"/>
 			</form>
 		</div>
 
@@ -215,23 +215,53 @@
 	EventUtil.addHandler(btnClick,"click",TableAdd);
 	addBtnAddCss("btnAdd0");	
 
+	function handlerPrevent()
+	{
+		event= this.event || window.event;
+		EventUtil.preventDefault(event);
+	}
     /*****onclick submit compute total user number*******/
-	var addUserNum=function()
+	var validCheck=function()
 	{
 
 		var parent = document.getElementById("infoBody");
 		var childs=parent.childNodes;
 		var childsArray=convertToElementArray(childs);
 		var length=childsArray.length;
+		EventUtil.removeHandler(document.getElementById("info1"),"submit",handlerPrevent);
 		for (var i=0; i< length;i++)
 		{
 			var table=document.getElementById("tableInfo"+i);
 			var user=document.getElementById("shareNum"+i);
-			user.value=table.rows.length-1;
+			if(user.value)
+			{
+				if(user.value!=table.rows.length-1)
+				{
+					var userNumByTableRows=table.rows.length-1
+					if(confirm(document.getElementById("itemName"+i).value+"人数不匹配，请确认是否为 "+userNumByTableRows+" 人？"))
+					{
+						user.value=table.rows.length-1;
+					}
+					else
+					{
+						EventUtil.addHandler(document.getElementById("info1"),"submit",handlerPrevent);
+						//EventUtil.removeHandler(document.getElementById("info1"),"submit",handlerPrevent);
+
+					}
+				}
+
+			}
+			else
+			{
+				user.value=table.rows.length-1;
+			}
+			
 		}
 
 
 	};
+
+	EventUtil.addHandler(document.getElementById("btnSubmit"),"click",validCheck);
 
     /*********add new item**********/
 	function addContent1Css (ElmentId) {
@@ -263,7 +293,6 @@
              				+"总金额："
               				+"<input id=pay"+count+" class=inputdata type=text name=totalPay form=info1>"+"  总人数:"
               				+"<input id=shareNum"+count+" class=inputdata type=text name=userNum form=info1 defaultValue=可选>"+"  "
-                   			+"<input id=btnSubmit"+count+" class=btnSubmit type=submit value=提交 form=info1>"+"  "
               			//+"</form>"
               		+"</div>"
               		+"<div class=mainbody id=content2_"+count+">"
@@ -333,9 +362,6 @@
 		  	EventUtil.addHandler(btnAddClic,"click",TableAdd);
 
 
-		  	var btnClickSubmit_Add=document.getElementById("btnSubmit"+count);
-			EventUtil.addHandler(btnClickSubmit_Add,"click",addUserNum); 
-
 			/***************delete new user************/
 			var table=document.getElementById("tableInfo"+count);
 			var childs=convertToElementArray(table.childNodes);
@@ -360,9 +386,6 @@
     };
 
     EventUtil.addHandler(click1,"click",addNewItem); 
-
-	var btnClickSubmit=document.getElementById("btnSubmit0");
-	EventUtil.addHandler(btnClickSubmit,"click",addUserNum);
 
 
 	 //****************display the haved items*****************
@@ -393,7 +416,6 @@
 	             				+"总金额："
 	              				+"<input id=pay"+count+" class=inputdata type=text name=totalPay form=info1>"+"  总人数:"
 	              				+"<input id=shareNum"+count+" class=inputdata type=text name=userNum form=info1>"+"  "
-	              				+"<input id=btnSubmit"+count+" class=btnSubmit type=submit value=提交 form=info1>"+"  "
 	              			//+"</form>"
 	              		+"</div>"
 	              		+"<div class=mainbody id=content2_"+count+">"
@@ -460,9 +482,6 @@
 				  	var btnAddClic=document.getElementById("btnAdd"+count);
 				  	EventUtil.addHandler(btnAddClic,"click",TableAdd);
 
-
-				  	var btnClickSubmit_Add=document.getElementById("btnSubmit"+count);
-					EventUtil.addHandler(btnClickSubmit_Add,"click",addUserNum);
 
 				}
 
@@ -553,5 +572,4 @@
 </body>
 
 </html>
-
 
