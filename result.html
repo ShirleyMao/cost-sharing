@@ -30,18 +30,7 @@
       EventUtil.addHandler(addModify,"click",handlerAddModify);
 
 
-      if (window.XMLHttpRequest)
-      {// code for IE7+, Firefox, Chrome, Opera, Safari
-        xmlhttp=new XMLHttpRequest();
-      }
-      else
-      {// code for IE6, IE5
-      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-      }
-
-      xmlhttp.open("GET","fee.xml",false);
-      xmlhttp.send();
-      xmlDoc=xmlhttp.responseXML;
+      var xmlDoc=loadXMLDoc("fee.xml");
       if(xmlDoc)
       {
         txt="<table id='result' border='1'><tr><th rowspan='2'>姓名</th><th rowspan='2'>电话</th><th rowspan='2'>邮箱</th>";
@@ -113,7 +102,8 @@
         var rlt=document.getElementById("result");
         var payers=xmlDoc.getElementsByTagName("Payer");
         var start=parseInt(x[0].childNodes[0].nodeValue)+parseInt(2);// the second item
-        for(var i=start;i<(parseInt(payers.length)+parseInt(2));i++)
+        var max=parseInt(payers.length)+parseInt(2);
+        for(var i=start;i<max;i++)
         {
           for(var j=2;j<i;j++)
           {
@@ -131,6 +121,8 @@
                 temp4.childNodes[0].nodeValue=parseInt(temp4.childNodes[0].nodeValue)+parseInt(temp6.childNodes[0].nodeValue);
               }
               rlt.deleteRow(i);
+              i--;
+              max--;
               break;
             }
           }
