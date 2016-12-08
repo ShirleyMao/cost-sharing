@@ -51,8 +51,8 @@
 					<td><input class="inputdata" type="text" name="Payer" form="info1"/></td>
 					<td><input class="inputdata" required type="number" name="Tel" form="info1"/></td>
 					<td><input class="inputdata" required type="email" name="Email" form="info1"/></td>
-					<td><input class="inputdata" type="text" name="RealPay" form="info1"/></td>
-					<td><input class="inputdata" type="text" name="NeedPay" form="info1"/></td>
+					<td><input class="inputdata" required type="text" name="RealPay" form="info1"/></td>
+					<td><input class="inputdata" required type="text" name="NeedPay" form="info1"/></td>
 					<td><button type="button" name="del">删除</button></td>
 				</tr>
 			</table>
@@ -186,10 +186,10 @@
     cell2.innerHTML="<input class='inputdata' required type='email' name='Email' form='info1'/>";
 
     var cell3=row.insertCell(3);
-    cell3.innerHTML="<input class='inputdata' type='text' name='RealPay' form='info1'/>";
+    cell3.innerHTML="<input class='inputdata' required type='text' name='RealPay' form='info1'/>";
 
     var cell4=row.insertCell(4);
-    cell4.innerHTML="<input class='inputdata' type='text' name='NeedPay' form='info1'/>";
+    cell4.innerHTML="<input class='inputdata' required type='text' name='NeedPay' form='info1'/>";
     
     var cell5=row.insertCell(5);
     cell5.innerHTML="<button type='button' name='del' >删除</button>";
@@ -233,6 +233,7 @@
 		{
 			var table=document.getElementById("tableInfo"+i);
 			var user=document.getElementById("shareNum"+i);
+			var totalFee=document.getElementById("pay"+i);
 			if(user.value)
 			{
 				if(user.value!=table.rows.length-1)
@@ -255,6 +256,17 @@
 			{
 				user.value=table.rows.length-1;
 			}
+
+			var sumFee=0;
+			for(var j=0;j<user.value;j++)
+			{
+				sumFee=parseInt(sumFee)+parseInt(document.getElementById("tableInfo"+i).rows[1+j].cells[4].firstChild.value);
+			}
+			if(sumFee!=totalFee.value)
+			{
+				alert(document.getElementById("itemName"+i).value+"费用总和不是 "+totalFee.value);
+				EventUtil.addHandler(document.getElementById("info1"),"submit",handlerPrevent);
+			}
 			
 		}
 
@@ -262,6 +274,15 @@
 	};
 
 	EventUtil.addHandler(document.getElementById("btnSubmit"),"click",validCheck);
+
+
+	function map()
+	{
+		  			//
+		 var str=this.id;
+
+		 document.getElementById("infoBody").scrollTop=document.getElementById("anchclList"+str.substring(4,str.length)).offsetTop;
+	}
 
     /*********add new item**********/
 	function addContent1Css (ElmentId) {
@@ -308,8 +329,8 @@
               					+"<td><input class=inputdata type=text name=Payer form=info1></td>"
               					+"<td><input class=inputdata required type=number name=Tel form=info1></td>"
               					+"<td><input class=inputdata required type=email name=Email form=info1></td>"
-              					+"<td><input class=inputdata type=text name=RealPay form=info1></td>"
-              					+"<td><input class=inputdata type=text name=NeedPay form=info1></td>"
+              					+"<td><input class=inputdata required type=text name=RealPay form=info1></td>"
+              					+"<td><input class=inputdata required type=text name=NeedPay form=info1></td>"
               					+"<td><button type=button name=del >删除</button></td>"
               				+"</tr>"
               			+"</table>"
@@ -342,9 +363,7 @@
 		  	document.getElementById("btnAdd"+count).style.marginBottom="500px";
 		  	document.getElementById("infoBody").scrollTop=document.getElementById("anchclList"+count).offsetTop;
 
-		  	EventUtil.addHandler(document.getElementById("item"+menuLen),"click",function(){
-		  	document.getElementById("infoBody").scrollTop=document.getElementById("anchclList"+count).offsetTop;	
-		  	});
+		  	EventUtil.addHandler(document.getElementById("item"+menuLen),"click",map);
 
 		  	if(count>6)
 		    {
@@ -358,6 +377,8 @@
 			clickRightMenu(menuLen,"delItem");  	  	
 
 		  	//bound with event
+		  	var firstUser=document.getElementById("tableInfo"+count).rows[1].cells[0];
+		  	EventUtil.addHandler(firstUser.firstChild,"change",telEmailAutoShow);
 		  	var btnAddClic=document.getElementById("btnAdd"+count);
 		  	EventUtil.addHandler(btnAddClic,"click",TableAdd);
 
@@ -431,8 +452,8 @@
 	              					+"<td><input class=inputdata type=text name=Payer form=info1></td>"
 	              					+"<td><input class=inputdata required type=number name=Tel form=info1></td>"
 	              					+"<td><input class=inputdata required type=email name=Email form=info1></td>"
-	              					+"<td><input class=inputdata type=text name=RealPay form=info1></td>"
-	              					+"<td><input class=inputdata type=text name=NeedPay form=info1></td>"
+	              					+"<td><input class=inputdata required type=text name=RealPay form=info1></td>"
+	              					+"<td><input class=inputdata required type=text name=NeedPay form=info1></td>"
 	              					+"<td><button type=button name=del >删除</button></td>"
 	              				+"</tr>"
 	              			+"</table>"
@@ -465,12 +486,7 @@
 				  		addBtnAddCss("btnAdd"+count);
 				  	}
 		  			 			
-		  			EventUtil.addHandler(document.getElementById("item"+menuLen),"click",function(){
-		  			//
-		  				var str=this.id;
-
-		  				document.getElementById("infoBody").scrollTop=document.getElementById("anchclList"+str.substring(4,str.length)).offsetTop;
-		  			});
+		  			
 				  	
 				  	//add content1 CSS 
 					addContent1Css("content1_"+count);
@@ -484,6 +500,7 @@
 
 
 				}
+				EventUtil.addHandler(document.getElementById("item"+i),"click",map);
 
 		    	m=document.getElementById("itemName"+i);
 			   	m.value=x[i].childNodes[0].nodeValue;
