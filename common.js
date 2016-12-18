@@ -710,5 +710,12 @@ function displayExistedItem()
       {
         document.getElementById("menu").style.width=parseInt(Math.ceil(x.length/6))*28+"em";
       }
+        
+      /***************delete new user************/
+      var dele=document.getElementsByName("del");
+      for(var i2=0;i2<dele.length;i2++)
+      {
+        EventUtil.addHandler(dele[i2],"click",deleteUser);
+      }
     }
 }
