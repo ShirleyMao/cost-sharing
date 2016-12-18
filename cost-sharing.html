@@ -70,16 +70,10 @@
 	/************display the haved items***/
 	 displayExistedItem();
 
-	/***************delete new user************/
-	var dele=document.getElementsByName("del");
-    for(var i=0;i<dele.length;i++)
-    {
-		EventUtil.addHandler(dele[i],"click",deleteUser);
-    }
 
 	/************add new item**************/
 	var clickAdd=document.getElementById("add");
-    EventUtil.addHandler(clickAdd,"click",addNewItem); 
+     	EventUtil.addHandler(clickAdd,"click",addNewItem); 
 
 
 	/************check valid when submit**************/
