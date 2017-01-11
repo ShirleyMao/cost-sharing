@@ -590,6 +590,16 @@ function addNewItem()
 function displayExistedItem()
 {
     var xmldoc=loadXMLDoc("fee.xml");
+
+    /****add new user for item0 whether xml exist or not****/
+    var btnClick=document.getElementById("btnAdd0");
+    EventUtil.addHandler(btnClick,"click",TableAdd);
+    addBtnAddCss("btnAdd0");
+
+    clickRightMenu(0,"delItem");
+    EventUtil.addHandler(document.getElementById("item0"),"click",map);
+    /******************************************************/
+
     if(xmldoc!=null)
     {
       var x=xmldoc.getElementsByTagName("item");
@@ -636,16 +646,6 @@ function displayExistedItem()
             //bound with event
             var btnAddClic=document.getElementById("btnAdd"+count);
             EventUtil.addHandler(btnAddClic,"click",TableAdd);
-
-          }
-          else
-          {
-            /***************add new user for item0************/
-            var btnClick=document.getElementById("btnAdd0");
-            EventUtil.addHandler(btnClick,"click",TableAdd);
-            addBtnAddCss("btnAdd0");
-
-            clickRightMenu(0,"delItem");
 
           }
 
