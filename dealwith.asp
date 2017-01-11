@@ -51,7 +51,7 @@ num=1
 
 
 '保存 XML 文件
-xmlDoc.save "G:\study\house\fee.xml"
+xmlDoc.Save(Server.MapPath(".\fee.xml")) 
 
 '释放所有的对象引用
 set xmlDoc=nothing
