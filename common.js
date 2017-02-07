@@ -1,9 +1,73 @@
+function creatDocument()
+{
+  if(typeof arguments.callee.activeXString != "string")
+  {
+    var versions=["MSXML2.DOMDocument.6.0","MSXML2.DOMDocument.3.0","MSXML2.DOMDocument"];
+    var i,len;
+
+    for(i=0,len=versions.length; i<len; i++)
+    {
+      try
+      {
+        new ActiveXObject(versions[i]);
+        arguments.callee.activeXString=versions[i];
+        break;
+      }
+      catch(ex)
+      {
+        //skip
+      }
+    }
+
+  }
+
+  return new ActiveXObject(arguments.callee.activeXString);
+}
+
+function createXHR()
+{
+  if(typeof XMLHttpRequest!="undefined")
+  {
+      return new XMLHttpRequest();
+  }
+  else if(typeof ActiveXObject!= "undefined")
+  {
+      if(typeof arguments.callee.activeXString != "string")
+      {
+        var versions=["MSXML2.XMLHttp.6.0","MSXML2.XMLHttp.3.0","MSXML2.XMLHttp"];
+        var i,len;
+
+        for(i=0,len=versions.length; i<len; i++)
+        {
+          try
+          {
+            new ActiveXObject(versions[i]);
+            arguments.callee.activeXString=versions[i];
+            break;
+          }
+          catch(ex)
+          {
+            //skip
+          }
+        }
+      
+      }
+      return new ActiveXObject(arguments.callee.activeXString);
+  }
+  else
+  {
+    throw new Error("NO XHR object available");
+  }
+  
+}
+
 //load xml
 function loadXMLDoc(dname) 
 {
+   
     try //Internet Explorer
     {
-        xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+        xmlDoc=createDocument();
         xmlDoc.async=false;
         xmlDoc.load(dname);
     }
@@ -19,7 +83,7 @@ function loadXMLDoc(dname)
         {
           try //Google Chrome
           {
-            var xmlhttp=new XMLHttpRequest();
+            var xmlhttp=createXHR();
             xmlhttp.open("Get",dname,false);
             xmlhttp.send(null);
             xmlDoc=xmlhttp.responseXML;
